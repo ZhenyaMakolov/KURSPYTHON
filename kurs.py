@@ -20,11 +20,11 @@ class VK:
         photo_params = {
             'owner_id': self.id,
             'extended': '1',
-            'album_id': 'wall',
+            'album_id': 'profile',
             'count': count}
         responses = requests.get(url, params={**self.params, **photo_params}).json()
         return responses['response']['items']
-
+    
     def photo_sort(self):
         photos = self.photo_info(count)
         vk_sizes = {'s': 1, 'm': 2, 'o': 3, 'p': 4, 'q': 5, 'r': 6, 'x': 7, 'y': 8, 'z': 9, 'w': 10}
@@ -94,3 +94,6 @@ if __name__ == '__main__':
     ya = Yandex(TOKEN)
     folder = (ya.create_folder('photo'))
     pprint(ya.download(destination='photo/vk', sourses=photo_sort))
+    owner_id = vk_client.users_get(user_ids)
+    for id in owner_id:
+        photo_info = vk_client.get_photos(album_id, rev, id['id'], count)
